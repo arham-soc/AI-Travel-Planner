@@ -12,6 +12,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import sqlite3
 from dotenv import load_dotenv
+from google import genai
+from google.genai import types
+
+client = genai.Client(api_key=GOOGLE_API_KEY)
 
 load_dotenv()
 
@@ -501,6 +505,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # API Keys
+#SERPAPI_KEY = "a82c62745f2b9141591f5e90ecc937fe23044f81da364ecf0719446438682d84"
 SERPAPI_KEY = os.getenv("SERPAPI_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
@@ -557,7 +562,7 @@ researcher = Agent(
         "Provide well-structured summaries with key insights and recommendations.",
         "Include practical information like best times to visit, local customs, and transportation options."
     ],
-    model=Gemini(id="gemini-2.0-flash-exp", api_key=GOOGLE_API_KEY),
+    model=Gemini(id="gemini-2.5-flash", api_key=GOOGLE_API_KEY),
     tools=[SerpApiTools(api_key=SERPAPI_KEY)],
 )
 
@@ -575,7 +580,7 @@ planner = Agent(
         "Provide cost estimates for activities, meals, and transportation.",
         "Consider the travel theme and preferences in activity selection."
     ],
-    model=Gemini(id="gemini-2.0-flash-exp", api_key=GOOGLE_API_KEY),
+    model=Gemini(id="gemini-2.5-flash", api_key=GOOGLE_API_KEY),
 )
 
 # AI Agent - Hotel & Restaurant Finder
@@ -592,7 +597,7 @@ hotel_restaurant_finder = Agent(
         "Consider dietary preferences and special requirements.",
         "Provide direct booking links or reservation options where possible."
     ],
-    model=Gemini(id="gemini-2.0-flash-exp", api_key=GOOGLE_API_KEY),
+    model=Gemini(id="gemini-2.5-flash", api_key=GOOGLE_API_KEY),
     tools=[SerpApiTools(api_key=SERPAPI_KEY)],
 )
 
