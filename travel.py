@@ -15,9 +15,8 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-client = genai.Client(api_key=GOOGLE_API_KEY)
-
 load_dotenv()
+
 
 # Set up Streamlit UI 
 st.set_page_config(
@@ -505,9 +504,9 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # API Keys
-#SERPAPI_KEY = "a82c62745f2b9141591f5e90ecc937fe23044f81da364ecf0719446438682d84"
 SERPAPI_KEY = os.getenv("SERPAPI_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+client = genai.Client(api_key=GOOGLE_API_KEY)
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 
 # Helper functions
